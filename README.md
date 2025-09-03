@@ -3,17 +3,21 @@
 A modern Snake Game built with HTML, CSS, and JavaScript.
 Play the classic snake game with a clean UI, smooth animations, and a responsive design.
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/0ecacf6a-2c47-4aba-8103-e4530570a2c5" />
-
 
 ## 🎮 Features
 
 ✅ Move the snake using Arrow Keys (↑ ↓ ← →)
+
 ✅ Eat grains to grow longer and gain +5 points each time
+
 ✅ Real-time score counter above the game board
+
 ✅ Game Over screen with final score and restart button
+
 ✅ Snake wraps around edges (no walls, but self-bite ends game)
+
 ✅ Clean & modern UI design with smooth colors
+
 ✅ Built with vanilla JavaScript (no external libraries)
 
 ## 📸 Screenshots
