@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>🐍 Snake Game</h1>
+      <div class="scoreboard">
+        Score: <span id="score">0</span>
+      </div>
+    </header>
+
+    <main class="stage">
+      <canvas id="game" width="500" height="500" aria-label="Snake game board"></canvas>
+
+      <!-- Game Over overlay -->
+      <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true">
+        <div class="card">
+          <h2>Game Over</h2>
+          <p>Your score: <strong id="finalScore">0</strong></p>
+          <button id="restartBtn" class="btn">Restart</button>
+          <p class="hint">Tip: Use arrow keys to move. Eat grains to grow (+5 points each). Avoid biting your body.</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <small>Made with HTML, CSS &amp; JavaScript</small>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
