@@ -1,25 +1,26 @@
 ## 🐍 Modern Snake Game
 
-A modern Snake Game built with HTML, CSS, and JavaScript. 🐍
-Control the snake with arrow keys, eat grains to grow, and increase your score by +5 points each bite.
-Enjoy smooth gameplay, a clean UI, and a fun retro gaming experience right in your browser!
+A modern Snake Game built with HTML, CSS, and JavaScript. Control the snake with arrow keys, eat grains to grow, and score points.
+Now with Pause/Resume buttons, speed boosts every 5th food, and sound effects for a fun retro experience! 🎮
 
 
 ## 🎮 Features
 
-✅ Move the snake using Arrow Keys (↑ ↓ ← →)
+🎯 Move the snake using Arrow Keys (↑ ↓ ← →)
 
-✅ Eat grains to grow longer and gain +5 points each time
+🍏 Eat grains to grow and earn +5 points
 
-✅ Real-time score counter above the game board
+📊 Scoreboard displayed at the top
 
-✅ Game Over screen with final score and restart button
+⏸ Pause and ▶ Resume buttons for better control
 
-✅ Snake wraps around edges (no walls, but self-bite ends game)
+⚡ Snake speed increases every 5th grain eaten
 
-✅ Clean & modern UI design with smooth colors
+🔊 Sound effects for eating and game over
 
-✅ Built with vanilla JavaScript (no external libraries)
+❌ Game ends when the snake collides with itself
+
+🔄 Restart option after game over
 
 ## 📸 Screenshots
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6d4c831a-2ed9-43a8-86a5-26a44973785d" />
@@ -48,19 +49,23 @@ Press any arrow key to start moving.
 
 Use Arrow Keys to control the snake.
 
-Eat the green grains to grow and increase your score.
+Eat grains to grow and increase your score.
 
-Avoid biting your own body – otherwise, it’s Game Over.
+Speed increases every 5th food eaten.
+
+Press ⏸ Pause to stop, ▶ Resume to continue.
+
+Avoid biting your own body — or it’s Game Over!
 
 Click Restart to play again.
 
 ## 📂 Tech Stack
 
-HTML5 – Structure
+HTML5 – Game structure
 
-CSS3 – Styling & UI
+CSS3 – Styling & responsive UI
 
-JavaScript (ES6) – Game logic
+JavaScript (ES6) – Game logic, controls, sound, speed
 
 ## 🌟 Future Enhancements
 
