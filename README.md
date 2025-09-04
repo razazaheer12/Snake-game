@@ -1,7 +1,8 @@
 ## 🐍 Modern Snake Game
 
-A modern Snake Game built with HTML, CSS, and JavaScript.
-Play the classic snake game with a clean UI, smooth animations, and a responsive design.
+A modern Snake Game built with HTML, CSS, and JavaScript. 🐍
+Control the snake with arrow keys, eat grains to grow, and increase your score by +5 points each bite.
+Enjoy smooth gameplay, a clean UI, and a fun retro gaming experience right in your browser!
 
 
 ## 🎮 Features
