@@ -1,10 +1,9 @@
 /* =========================
-   Modern Snake – Vanilla JS
-   Rules per request:
-   - Arrow keys move snake (no instant 180° turns)
-   - Eat grains to grow; +5 points each
-   - Self-bite = Game Over
-   - Wrapping walls (only self-collision ends game)
+   Snake Game – with Pause/Resume
+   Enhancements:
+   - Sound effects
+   - Speed increase every 5th food
+   - Pause / Resume buttons
    ========================= */
 
 const canvas = document.getElementById('game');
@@ -14,15 +13,17 @@ const scoreEl = document.getElementById('score');
 const overlay = document.getElementById('overlay');
 const finalScoreEl = document.getElementById('finalScore');
 const restartBtn = document.getElementById('restartBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const resumeBtn = document.getElementById('resumeBtn');
 
 // Grid config
-const CELL = 20;               // each cell is 20px
-const COLS = canvas.width / CELL;  // 500 / 20 = 25
-const ROWS = canvas.height / CELL; // 25
-const SPEED = 8;              // cells per second (adjust to taste)
-const STEP_MS = 1000 / SPEED; // ms per step
+const CELL = 20;
+const COLS = canvas.width / CELL;
+const ROWS = canvas.height / CELL;
+let SPEED = 8;                // starting speed
+let STEP_MS = 1000 / SPEED;   // ms per step
 
-// Colors (match CSS theme)
+// Colors
 const COLORS = {
   bg: '#0d1022',
   snake: '#8ab4ff',
@@ -31,10 +32,13 @@ const COLORS = {
   cellShadow: 'rgba(0,0,0,0.15)'
 };
 
-let snake, dir, nextDir, food, score, elapsed, lastTime, playing;
+// Sounds
+const eatSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-mechanical-bling-210.wav");
+const gameOverSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-fast-game-over-233.wav");
+
+let snake, dir, nextDir, food, score, elapsed, lastTime, playing, paused, foodsEaten;
 
 function init() {
-  // Start snake in middle with length 3 moving to the right
   const startX = Math.floor(COLS / 2);
   const startY = Math.floor(ROWS / 2);
   snake = [
@@ -46,21 +50,24 @@ function init() {
   nextDir = { ...dir };
   food = spawnFood();
   score = 0;
+  foodsEaten = 0;
   scoreEl.textContent = score;
   elapsed = 0;
   lastTime = performance.now();
   playing = true;
+  paused = false;
+  SPEED = 8;              // reset speed
+  STEP_MS = 1000 / SPEED;
   overlay.classList.add('hidden');
   requestAnimationFrame(loop);
 }
 
 function loop(now) {
-  if (!playing) return;
+  if (!playing || paused) return; // stop loop if paused or game over
   const delta = now - lastTime;
   lastTime = now;
   elapsed += delta;
 
-  // Update in fixed time steps for consistent speed
   while (elapsed >= STEP_MS) {
     step();
     elapsed -= STEP_MS;
@@ -71,39 +78,43 @@ function loop(now) {
 }
 
 function step() {
-  // apply buffered direction (prevents instant opposite)
   dir = nextDir;
 
   const head = { ...snake[0] };
   head.x = wrap(head.x + dir.x, COLS);
   head.y = wrap(head.y + dir.y, ROWS);
 
-  // self-collision check
   if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
     return gameOver();
   }
 
   snake.unshift(head);
 
-  // food?
   if (head.x === food.x && head.y === food.y) {
     score += 5;
+    foodsEaten++;
     scoreEl.textContent = score;
     food = spawnFood();
+    eatSound.currentTime = 0;
+    eatSound.play();
+
+    // Increase speed every 5th food
+    if (foodsEaten % 5 === 0) {
+      SPEED += 1; // noticeable jump
+      STEP_MS = 1000 / SPEED;
+    }
+
   } else {
-    snake.pop(); // move forward (no growth this frame)
+    snake.pop();
   }
 }
 
 function draw() {
-  // clear board
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // draw food
   drawCell(food.x, food.y, COLORS.food, true);
 
-  // draw snake
   for (let i = snake.length - 1; i >= 0; i--) {
     const seg = snake[i];
     const isHead = i === 0;
@@ -115,25 +126,20 @@ function drawCell(gx, gy, color, pulse = false, isHead = false) {
   const x = gx * CELL;
   const y = gy * CELL;
 
-  // shadow
   ctx.fillStyle = COLORS.cellShadow;
   ctx.fillRect(x + 2, y + 2, CELL - 4, CELL - 4);
 
-  // cell
   ctx.fillStyle = color;
   ctx.beginPath();
   const r = 6;
   roundRect(ctx, x + 1, y + 1, CELL - 2, CELL - 2, r);
   ctx.fill();
 
-  // simple eye for head
   if (isHead) {
     ctx.fillStyle = 'rgba(10,12,26,0.85)';
-    const eyeSize = 3;
-    ctx.fillRect(x + CELL / 2 + 3, y + CELL / 2 - 5, eyeSize, eyeSize);
+    ctx.fillRect(x + CELL / 2 + 3, y + CELL / 2 - 5, 3, 3);
   }
 
-  // subtle pulse for food
   if (pulse) {
     const t = performance.now() / 600;
     const alpha = 0.35 + 0.15 * Math.sin(t * 2 * Math.PI);
@@ -153,7 +159,6 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 function spawnFood() {
-  // generate a position not overlapping with the snake
   let pos;
   const taken = new Set(snake.map(s => `${s.x},${s.y}`));
   do {
@@ -174,20 +179,18 @@ function wrap(v, max) {
 
 function gameOver() {
   playing = false;
+  gameOverSound.play();
   finalScoreEl.textContent = score;
   overlay.classList.remove('hidden');
 }
 
-// Controls
 window.addEventListener('keydown', (e) => {
   const { key } = e;
-  // Prevent scrolling with arrow keys
   if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)) {
     e.preventDefault();
   }
   const kd = keyDir(key);
   if (!kd) return;
-  // block 180° turns
   if (kd.x === -dir.x && kd.y === -dir.y) return;
   nextDir = kd;
 });
@@ -202,8 +205,17 @@ function keyDir(key) {
   }
 }
 
-// Restart
+// Button controls
+pauseBtn.addEventListener('click', () => {
+  paused = true;
+});
+resumeBtn.addEventListener('click', () => {
+  if (playing && paused) {
+    paused = false;
+    lastTime = performance.now(); // reset time tracking
+    requestAnimationFrame(loop);
+  }
+});
 restartBtn.addEventListener('click', init);
 
-// Start game
 init();
