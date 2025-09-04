@@ -39,10 +39,15 @@ Just open index.html in your favorite browser.
 No server setup required!
 
 ## 🛠️ Project Structure
+
 snake-game/
+
 │── index.html      # Game layout
+
 │── style.css       # Game styling
+
 │── script.js       # Game logic
+
 │── README.md       # Project documentation
 
 ## 🎯 How to Play
