@@ -1,10 +1,11 @@
-/* =========================
-   Snake Game – with Pause/Resume
-   Enhancements:
-   - Sound effects
-   - Speed increase every 5th food
-   - Pause / Resume buttons
-   ========================= */
+// ===========================
+// Snake Game with:
+// - Pause/Resume (buttons + keys)
+// - Speed increase every 5th food
+// - Sound effects
+// - Mobile touch controls
+// - Responsive canvas
+// ===========================
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d', { alpha: false });
@@ -16,12 +17,18 @@ const restartBtn = document.getElementById('restartBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resumeBtn = document.getElementById('resumeBtn');
 
+// Mobile buttons
+const upBtn = document.getElementById('upBtn');
+const downBtn = document.getElementById('downBtn');
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+
 // Grid config
 const CELL = 20;
 const COLS = canvas.width / CELL;
 const ROWS = canvas.height / CELL;
-let SPEED = 8;                // starting speed
-let STEP_MS = 1000 / SPEED;   // ms per step
+let SPEED = 8;
+let STEP_MS = 1000 / SPEED;
 
 // Colors
 const COLORS = {
@@ -56,14 +63,14 @@ function init() {
   lastTime = performance.now();
   playing = true;
   paused = false;
-  SPEED = 8;              // reset speed
+  SPEED = 8;
   STEP_MS = 1000 / SPEED;
   overlay.classList.add('hidden');
   requestAnimationFrame(loop);
 }
 
 function loop(now) {
-  if (!playing || paused) return; // stop loop if paused or game over
+  if (!playing || paused) return;
   const delta = now - lastTime;
   lastTime = now;
   elapsed += delta;
@@ -79,7 +86,6 @@ function loop(now) {
 
 function step() {
   dir = nextDir;
-
   const head = { ...snake[0] };
   head.x = wrap(head.x + dir.x, COLS);
   head.y = wrap(head.y + dir.y, ROWS);
@@ -98,12 +104,10 @@ function step() {
     eatSound.currentTime = 0;
     eatSound.play();
 
-    // Increase speed every 5th food
     if (foodsEaten % 5 === 0) {
-      SPEED += 1; // noticeable jump
+      SPEED += 1;
       STEP_MS = 1000 / SPEED;
     }
-
   } else {
     snake.pop();
   }
@@ -184,15 +188,29 @@ function gameOver() {
   overlay.classList.remove('hidden');
 }
 
+// Keyboard controls
 window.addEventListener('keydown', (e) => {
   const { key } = e;
+
+  // Arrow keys for movement
   if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)) {
     e.preventDefault();
+    const kd = keyDir(key);
+    if (kd && !(kd.x === -dir.x && kd.y === -dir.y)) {
+      nextDir = kd;
+    }
   }
-  const kd = keyDir(key);
-  if (!kd) return;
-  if (kd.x === -dir.x && kd.y === -dir.y) return;
-  nextDir = kd;
+
+  // Shortcuts
+  if (key === 'p' || key === 'P') paused = true;
+  if (key === 'r' || key === 'R') {
+    if (playing && paused) {
+      paused = false;
+      lastTime = performance.now();
+      requestAnimationFrame(loop);
+    }
+  }
+  if (key === 'Enter' && !playing) init();
 });
 
 function keyDir(key) {
@@ -206,16 +224,20 @@ function keyDir(key) {
 }
 
 // Button controls
-pauseBtn.addEventListener('click', () => {
-  paused = true;
-});
+pauseBtn.addEventListener('click', () => paused = true);
 resumeBtn.addEventListener('click', () => {
   if (playing && paused) {
     paused = false;
-    lastTime = performance.now(); // reset time tracking
+    lastTime = performance.now();
     requestAnimationFrame(loop);
   }
 });
 restartBtn.addEventListener('click', init);
+
+// Mobile buttons
+upBtn.addEventListener('click', () => { if (dir.y !== 1) nextDir = {x:0,y:-1}; });
+downBtn.addEventListener('click', () => { if (dir.y !== -1) nextDir = {x:0,y:1}; });
+leftBtn.addEventListener('click', () => { if (dir.x !== 1) nextDir = {x:-1,y:0}; });
+rightBtn.addEventListener('click', () => { if (dir.x !== -1) nextDir = {x:1,y:0}; });
 
 init();
