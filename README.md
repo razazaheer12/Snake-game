@@ -35,8 +35,7 @@ cd snake-game
 
 ## Open in Browser
 
-Just open index.html in your favorite browser.
-No server setup required!
+https://snake-game-0099.netlify.app/
 
 ## 🛠️ Project Structure
 
