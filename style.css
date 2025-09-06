@@ -1,6 +1,4 @@
-/* ===========================
-   Global Reset & Base
-   =========================== */
+/* Base reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,9 +17,7 @@ body {
   padding: 20px;
 }
 
-/* ===========================
-   Top Bar
-   =========================== */
+/* Top bar */
 .topbar {
   width: 100%;
   max-width: 500px;
@@ -51,9 +47,7 @@ body {
   font-weight: bold;
 }
 
-/* ===========================
-   Buttons
-   =========================== */
+/* Buttons */
 .btn {
   padding: 8px 16px;
   font-size: 15px;
@@ -77,9 +71,7 @@ body {
   opacity: 0.9;
 }
 
-/* ===========================
-   Game Canvas
-   =========================== */
+/* Canvas */
 main {
   display: flex;
   justify-content: center;
@@ -93,9 +85,7 @@ canvas {
   box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
 
-/* ===========================
-   Overlay (Game Over Screen)
-   =========================== */
+/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -130,4 +120,44 @@ canvas {
 .overlay-content p {
   font-size: 18px;
   margin-bottom: 20px;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+  display: none;
+  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-controls button {
+  background: #8ab4ff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.mobile-controls .middle-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  canvas {
+    width: 300px;
+    height: 300px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
 }
