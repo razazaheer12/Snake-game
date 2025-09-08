@@ -3,7 +3,8 @@
 A modern Snake Game built with HTML, CSS, and JavaScript. Control the snake with arrow keys, eat grains to grow, and score points.
 Now with Pause/Resume buttons, speed boosts every 5th food, and sound effects for a fun retro experience! 🎮
 
-<img width="1353" height="861" alt="image" src="https://github.com/user-attachments/assets/9727b49f-03cf-47af-978f-2df48e38cf9c" />
+<img width="1385" height="748" alt="image" src="https://github.com/user-attachments/assets/c818b621-6d5b-4dc0-a572-5b1af4ad1732" />
+
 
 
 ## 🎮 Features
