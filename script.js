@@ -15,8 +15,7 @@ const scoreEl = document.getElementById('score');
 const overlay = document.getElementById('overlay');
 const finalScoreEl = document.getElementById('finalScore');
 const restartBtn = document.getElementById('restartBtn');
-const pauseBtn = document.getElementById('pauseBtn');
-const resumeBtn = document.getElementById('resumeBtn');
+const pauseResumeBtn = document.getElementById('pauseResumeBtn');
 const muteBtn = document.getElementById('muteBtn');
 
 // Mobile buttons
@@ -74,6 +73,7 @@ function init() {
   SPEED = 8;
   STEP_MS = 1000 / SPEED;
   overlay.classList.add('hidden');
+  pauseResumeBtn.textContent = '⏸ Pause';
 
   // Start music if not muted
   if (!isMuted) {
@@ -223,6 +223,7 @@ window.addEventListener('keydown', (e) => {
   if (key === 'p' || key === 'P') {
     paused = true;
     bgMusic.pause();
+    pauseResumeBtn.textContent = '▶ Resume';
   }
   if (key === 'r' || key === 'R') {
     if (playing && paused) {
@@ -230,6 +231,7 @@ window.addEventListener('keydown', (e) => {
       if (!isMuted) bgMusic.play();
       lastTime = performance.now();
       requestAnimationFrame(loop);
+      pauseResumeBtn.textContent = '⏸ Pause';
     }
   }
   if (key === 'Enter' && !playing) init();
@@ -246,16 +248,19 @@ function keyDir(key) {
 }
 
 // Button controls
-pauseBtn.addEventListener('click', () => {
-  paused = true;
-  bgMusic.pause();
-});
-resumeBtn.addEventListener('click', () => {
-  if (playing && paused) {
+pauseResumeBtn.addEventListener('click', () => {
+  if (paused) {
+    // Resume
     paused = false;
     if (!isMuted) bgMusic.play();
     lastTime = performance.now();
     requestAnimationFrame(loop);
+    pauseResumeBtn.textContent = '⏸ Pause';
+  } else {
+    // Pause
+    paused = true;
+    bgMusic.pause();
+    pauseResumeBtn.textContent = '▶ Resume';
   }
 });
 restartBtn.addEventListener('click', init);
