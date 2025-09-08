@@ -71,6 +71,13 @@ body {
   opacity: 0.9;
 }
 
+/* Smaller size for specific buttons: pause, restart, mute */
+#pauseBtn, #restartBtn, #muteBtn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
 /* Canvas */
 main {
   display: flex;
