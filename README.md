@@ -33,7 +33,7 @@ Now with Pause/Resume buttons, speed boosts every 5th food, and sound effects fo
 
 ## Open in Browser
 
-Open index.html in your web browser to start playing.
+https://snake-game0999.netlify.app/
 
 ## 🛠️ Project Structure
 
