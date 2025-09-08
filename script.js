@@ -3,7 +3,6 @@
 // - Pause/Resume (buttons + keys)
 // - Speed increase every 5th food
 // - Sound effects
-// - Background music
 // - Mobile touch controls
 // - Responsive canvas
 // ===========================
@@ -44,13 +43,7 @@ const COLORS = {
 const eatSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-mechanical-bling-210.wav");
 const gameOverSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-fast-game-over-233.wav");
 
-// Background music
-const bgMusic = new Audio("https://assets.mixkit.co/active_sfx/mixkit-game-level-music-689.wav");
-bgMusic.loop = true;
-bgMusic.volume = 0.3; // Set volume to 30%
-
 let snake, dir, nextDir, food, score, elapsed, lastTime, playing, paused, foodsEaten;
-let musicStarted = false;
 
 function init() {
   const startX = Math.floor(COLS / 2);
@@ -73,33 +66,7 @@ function init() {
   SPEED = 8;
   STEP_MS = 1000 / SPEED;
   overlay.classList.add('hidden');
-  
-  // Start background music
-  startBackgroundMusic();
-  
   requestAnimationFrame(loop);
-}
-
-function startBackgroundMusic() {
-  if (!musicStarted) {
-    bgMusic.currentTime = 0;
-    bgMusic.play().catch(e => {
-      // Handle autoplay policy restrictions
-      console.log('Background music blocked by browser autoplay policy');
-    });
-    musicStarted = true;
-  } else {
-    // Resume if paused
-    if (bgMusic.paused) {
-      bgMusic.play().catch(e => console.log('Could not resume background music'));
-    }
-  }
-}
-
-function pauseBackgroundMusic() {
-  if (!bgMusic.paused) {
-    bgMusic.pause();
-  }
 }
 
 function loop(now) {
@@ -216,7 +183,6 @@ function wrap(v, max) {
 
 function gameOver() {
   playing = false;
-  pauseBackgroundMusic(); // Pause music when game ends
   gameOverSound.play();
   finalScoreEl.textContent = score;
   overlay.classList.remove('hidden');
@@ -236,24 +202,15 @@ window.addEventListener('keydown', (e) => {
   }
 
   // Shortcuts
-  if (key === 'p' || key === 'P') {
-    paused = true;
-    pauseBackgroundMusic(); // Pause music when game is paused
-  }
+  if (key === 'p' || key === 'P') paused = true;
   if (key === 'r' || key === 'R') {
     if (playing && paused) {
       paused = false;
-      startBackgroundMusic(); // Resume music when game resumes
       lastTime = performance.now();
       requestAnimationFrame(loop);
     }
   }
   if (key === 'Enter' && !playing) init();
-  
-  // Toggle music with 'M' key
-  if (key === 'm' || key === 'M') {
-    toggleMusic();
-  }
 });
 
 function keyDir(key) {
@@ -266,31 +223,15 @@ function keyDir(key) {
   }
 }
 
-function toggleMusic() {
-  if (bgMusic.paused) {
-    if (playing && !paused) {
-      startBackgroundMusic();
-    }
-  } else {
-    pauseBackgroundMusic();
-  }
-}
-
 // Button controls
-pauseBtn.addEventListener('click', () => {
-  paused = true;
-  pauseBackgroundMusic(); // Pause music when pause button is clicked
-});
-
+pauseBtn.addEventListener('click', () => paused = true);
 resumeBtn.addEventListener('click', () => {
   if (playing && paused) {
     paused = false;
-    startBackgroundMusic(); // Resume music when resume button is clicked
     lastTime = performance.now();
     requestAnimationFrame(loop);
   }
 });
-
 restartBtn.addEventListener('click', init);
 
 // Mobile buttons
@@ -298,18 +239,5 @@ upBtn.addEventListener('click', () => { if (dir.y !== 1) nextDir = {x:0,y:-1}; }
 downBtn.addEventListener('click', () => { if (dir.y !== -1) nextDir = {x:0,y:1}; });
 leftBtn.addEventListener('click', () => { if (dir.x !== 1) nextDir = {x:-1,y:0}; });
 rightBtn.addEventListener('click', () => { if (dir.x !== -1) nextDir = {x:1,y:0}; });
-
-// Handle page visibility change to pause/resume music
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    if (playing && !paused) {
-      pauseBackgroundMusic();
-    }
-  } else {
-    if (playing && !paused) {
-      startBackgroundMusic();
-    }
-  }
-});
 
 init();
