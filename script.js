@@ -3,6 +3,7 @@
 // - Pause/Resume (buttons + keys)
 // - Speed increase every 5th food
 // - Sound effects
+// - Background music + mute/unmute
 // - Mobile touch controls
 // - Responsive canvas
 // ===========================
@@ -16,6 +17,7 @@ const finalScoreEl = document.getElementById('finalScore');
 const restartBtn = document.getElementById('restartBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resumeBtn = document.getElementById('resumeBtn');
+const muteBtn = document.getElementById('muteBtn');
 
 // Mobile buttons
 const upBtn = document.getElementById('upBtn');
@@ -43,6 +45,12 @@ const COLORS = {
 const eatSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-mechanical-bling-210.wav");
 const gameOverSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-fast-game-over-233.wav");
 
+// Background Music
+const bgMusic = new Audio("https://www.bensound.com/bensound-music/bensound-funkyelement.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.3;
+let isMuted = false;
+
 let snake, dir, nextDir, food, score, elapsed, lastTime, playing, paused, foodsEaten;
 
 function init() {
@@ -66,6 +74,15 @@ function init() {
   SPEED = 8;
   STEP_MS = 1000 / SPEED;
   overlay.classList.add('hidden');
+
+  // Start music if not muted
+  if (!isMuted) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().catch(() => {
+      console.log("Autoplay blocked until user interaction");
+    });
+  }
+
   requestAnimationFrame(loop);
 }
 
@@ -102,7 +119,7 @@ function step() {
     scoreEl.textContent = score;
     food = spawnFood();
     eatSound.currentTime = 0;
-    eatSound.play();
+    if (!isMuted) eatSound.play();
 
     if (foodsEaten % 5 === 0) {
       SPEED += 1;
@@ -183,7 +200,8 @@ function wrap(v, max) {
 
 function gameOver() {
   playing = false;
-  gameOverSound.play();
+  bgMusic.pause();
+  if (!isMuted) gameOverSound.play();
   finalScoreEl.textContent = score;
   overlay.classList.remove('hidden');
 }
@@ -202,10 +220,14 @@ window.addEventListener('keydown', (e) => {
   }
 
   // Shortcuts
-  if (key === 'p' || key === 'P') paused = true;
+  if (key === 'p' || key === 'P') {
+    paused = true;
+    bgMusic.pause();
+  }
   if (key === 'r' || key === 'R') {
     if (playing && paused) {
       paused = false;
+      if (!isMuted) bgMusic.play();
       lastTime = performance.now();
       requestAnimationFrame(loop);
     }
@@ -224,15 +246,26 @@ function keyDir(key) {
 }
 
 // Button controls
-pauseBtn.addEventListener('click', () => paused = true);
+pauseBtn.addEventListener('click', () => {
+  paused = true;
+  bgMusic.pause();
+});
 resumeBtn.addEventListener('click', () => {
   if (playing && paused) {
     paused = false;
+    if (!isMuted) bgMusic.play();
     lastTime = performance.now();
     requestAnimationFrame(loop);
   }
 });
 restartBtn.addEventListener('click', init);
+
+// Mute/Unmute button
+muteBtn.addEventListener('click', () => {
+  isMuted = !isMuted;
+  bgMusic.muted = isMuted;
+  muteBtn.textContent = isMuted ? "🔇 Unmute" : "🔊 Mute";
+});
 
 // Mobile buttons
 upBtn.addEventListener('click', () => { if (dir.y !== 1) nextDir = {x:0,y:-1}; });
