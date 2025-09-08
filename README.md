@@ -30,13 +30,10 @@ Now with Pause/Resume buttons, speed boosts every 5th food, and sound effects fo
 
 
 ## 🚀 Getting Started
-1. Clone the Repository
-git clone https://github.com/your-username/snake-game.git
-cd snake-game
 
 ## Open in Browser
 
-https://snake-game-0099.netlify.app/
+Open index.html in your web browser to start playing.
 
 ## 🛠️ Project Structure
 
