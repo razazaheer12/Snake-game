@@ -1,95 +1,80 @@
-## 🐍 Modern Snake Game
+# 🐍 Modern Snake Game
 
-A modern Snake Game built with HTML, CSS, and JavaScript. Control the snake with arrow keys, eat grains to grow, and score points.
-Now with Pause/Resume buttons, speed boosts every 5th food, and sound effects for a fun retro experience! 🎮
+A feature-rich, interactive **Snake Game** engineered with HTML5, CSS3, and modern Vanilla JavaScript (ES6+). Experience the nostalgic retro gameplay enhanced with speed progression, interactive audio feedback, state controls (Pause/Resume), and persistent score tracking.
 
-<img width="1385" height="748" alt="image" src="https://github.com/user-attachments/assets/c818b621-6d5b-4dc0-a572-5b1af4ad1732" />
+---
 
+## 📸 Preview
 
+🌐 **Live Demo:** [snake-game0999.netlify.app](https://snake-game0999.netlify.app/)
+
+![Snake Game Banner](https://github.com/user-attachments/assets/c818b621-6d5b-4dc0-a572-5b1af4ad1732)
+
+---
 
 ## 🎮 Features
 
-🎯 Move the snake using Arrow Keys (↑ ↓ ← →)
+* **Dynamic Speed Progression:** Movement speed automatically accelerates every 5th food item consumed to elevate gameplay challenge.
+* **Full State Control:** Interactive ⏸️ **Pause** and ▶️ **Resume** functionality for seamless game management.
+* **Audio Feedback Engine:** Custom sound effects triggered on food consumption and collision/game-over states.
+* **Collision Detection System:** Precise self-collision check algorithm triggering game termination upon snake-body intersection.
+* **Real-time Score Dashboard:** High-contrast scoreboard displaying active points dynamically.
+* **Quick Reset Flow:** Instant game restart loop upon game over.
 
-🍏 Eat grains to grow and earn +5 points
-
-📊 Scoreboard displayed at the top
-
-⏸ Pause and ▶ Resume buttons for better control
-
-⚡ Snake speed increases every 5th grain eaten
-
-🔊 Sound effects for eating and game over
-
-❌ Game ends when the snake collides with itself
-
-🔄 Restart option after game over
-
-## 📸 Screenshots
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6d4c831a-2ed9-43a8-86a5-26a44973785d" />
-
-
-## 🚀 Getting Started
-
-## Open in Browser
-
-https://snake-game0999.netlify.app/
+---
 
 ## 🛠️ Project Structure
 
-snake-game/
+snake-game /
 
-│── index.html      # Game layout
+│── index.html      # Game layout and structure
 
-│── style.css       # Game styling
+│── style.css       # Game styling and animations
 
-│── script.js       # Game logic
+│── script.js       # Game logic and functionality
 
 │── README.md       # Project documentation
 
-## 🎯 How to Play
-
-Press any arrow key to start moving.
-
-Use Arrow Keys to control the snake.
-
-Eat grains to grow and increase your score.
-
-Speed increases every 5th food eaten.
-
-Press ⏸ Pause to stop, ▶ Resume to continue.
-
-Avoid biting your own body — or it’s Game Over!
-
-Click Restart to play again.
+---
 
 ## 📂 Tech Stack
 
-HTML5 – Game structure
+* **HTML5:** Semantic layout structure and canvas/game frame orchestration.
+* **CSS3:** Dark-theme retro aesthetic, responsive grid layout, and action controls styling.
+* **JavaScript (ES6+):** Event-driven game loop, interval timing management, self-collision detection algorithms, and Web Audio API integration.
 
-CSS3 – Styling & responsive UI
+---
 
-JavaScript (ES6) – Game logic, controls, sound, speed
+## 🔮 Roadmap / Future Enhancements
 
-## 🌟 Future Enhancements
+- [x] Audio integration for food consumption & game over
+- [x] Dynamic speed scaling based on food score
+- [ ] Customizable Snake & Board UI themes / skins
+- [ ] Mobile-friendly touch & swipe controls
+- [ ] LocalStorage integration for High Score persistence
 
-🔊 Add sound effects
-
-⚡ Increase speed as score grows
-
-🎨 Skins / themes for snake & board
-
-📱 Mobile-friendly touch controls
+---
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
-Feel free to fork this repo and submit a pull request.
+Contributions, feature suggestions, and bug reports are welcome! Feel free to check the issues tab or open a pull request.
+
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git checkout -b feature/AmazingFeature)
+5. Open a Pull Request
+
+---
 
 ## 📜 License
 
-This project is licensed under the MIT License – feel free to use and modify.
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+---
 
 ## 👨‍💻 Author
 
-Developed by RazaZaheer12 🚀
+**Raza Zaheer**
+* GitHub: [@razazaheer12](https://github.com/razazaheer12)
+
