@@ -2,13 +2,13 @@
 
 A feature-rich, interactive **Snake Game** engineered with HTML5, CSS3, and modern Vanilla JavaScript (ES6+). Experience the nostalgic retro gameplay enhanced with speed progression, interactive audio feedback, state controls (Pause/Resume), and persistent score tracking.
 
----
-
-## 📸 Preview
-
-🌐 **Live Demo:** [snake-game0999.netlify.app](https://snake-game0999.netlify.app/)
-
 ![Snake Game Banner](https://github.com/user-attachments/assets/c818b621-6d5b-4dc0-a572-5b1af4ad1732)
+
+<div align="center">
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-snake--game0999.netlify.app-00C7B7?style=for-the-badge)](https://snake-game0999.netlify.app/)
+
+</div>
 
 ---
 
@@ -23,20 +23,16 @@ A feature-rich, interactive **Snake Game** engineered with HTML5, CSS3, and mode
 
 ---
 
+```
 ## 🛠️ Project Structure
 
-snake-game /
+├── Snake-Game/                # 🐍 Classic Snake Game
+│   ├── index.html             # Game structure
+│   ├── script.js              # Game logic
+│   ├── style.css              # Styling & animations
+│   └── README.md              # Game documentation
 
-│── index.html      # Game layout and structure
-
-│── style.css       # Game styling and animations
-
-│── script.js       # Game logic and functionality
-
-│── README.md       # Project documentation
-
----
-
+```
 ## 📂 Tech Stack
 
 * **HTML5:** Semantic layout structure and canvas/game frame orchestration.
@@ -57,13 +53,22 @@ snake-game /
 
 ## 🤝 Contributing
 
-Contributions, feature suggestions, and bug reports are welcome! Feel free to check the issues tab or open a pull request.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
 
-1. Fork the Project
-2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
-3. Commit your Changes (git commit -m 'Add some AmazingFeature')
-4. Push to the Branch (git checkout -b feature/AmazingFeature)
-5. Open a Pull Request
+```bash
+# 1. Fork the Project
+# 2. Create your Feature Branch
+git checkout -b feature/AmazingFeature
+
+# 3. Commit your Changes
+git commit -m 'Add some AmazingFeature'
+
+# 4. Push to the Branch
+git push origin feature/AmazingFeature
+
+# 5. Open a Pull Request
+
+```
 
 ---
 
